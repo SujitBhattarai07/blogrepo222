@@ -3,79 +3,90 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Blog App</title>
+  <title>The Blog</title>
   <link rel="stylesheet" href="style.css" />
 </head>
 <body>
 
-  <div class="navbar">
-    <strong>Blog App</strong>
-    <div>
-      <span id="welcome-msg"></span>
-      <button onclick="logout()" class="btn-small">Logout</button>
+  <header class="site-header">
+    <div class="header-inner">
+      <a href="blog.html" class="site-title">✏️ The Blog</a>
+      <div class="header-right">
+        <span id="welcome-msg"></span>
+        <button onclick="logout()" class="btn-small">Logout</button>
+      </div>
     </div>
-  </div>
+  </header>
 
-  <div class="container">
+  <div class="page-wrapper">
 
-    <!-- NEW POST FORM -->
-    <div class="card">
+    <!-- WRITE POST -->
+    <div class="write-section">
       <h2>Write a New Post</h2>
-      <form id="postForm">
-        <label>Title</label>
-        <input type="text" id="post-title" placeholder="Post title" required />
-        <label>Content</label>
-        <textarea id="post-content" placeholder="Write your post here..." rows="5" required></textarea>
-        <button type="submit">Publish Post</button>
+      <form id="postForm" class="write-form">
+        <input type="text" id="post-title" placeholder="Post title..." required />
+        <textarea id="post-content" placeholder="What's on your mind?" rows="5" required></textarea>
+        <button type="submit">Publish Post →</button>
         <p class="msg" id="post-msg"></p>
       </form>
     </div>
 
+    <hr class="divider" />
+
     <!-- ALL POSTS -->
-    <h2 style="margin-top: 2rem;">All Posts</h2>
-    <div id="posts-list">
-      <p>Loading posts...</p>
+    <div class="posts-section">
+      <h2>Recent Posts</h2>
+      <div id="posts-list">
+        <p class="loading-text">Loading posts...</p>
+      </div>
     </div>
 
   </div>
 
+  <footer class="site-footer">
+    <p>The Blog &mdash; <span id="year"></span></p>
+  </footer>
+
   <script>
-    // Check login
     const user = JSON.parse(localStorage.getItem('user'));
     if (!user) window.location.href = 'index.html';
 
-    document.getElementById('welcome-msg').textContent = 'Hello, ' + user.username + '  |  ';
+    document.getElementById('welcome-msg').textContent = 'Hi, ' + user.username;
+    document.getElementById('year').textContent = new Date().getFullYear();
 
     function logout() {
       localStorage.removeItem('user');
       window.location.href = 'index.html';
     }
 
-    // Load posts
     async function loadPosts() {
       const res = await fetch('/api/posts');
       const posts = await res.json();
       const list = document.getElementById('posts-list');
 
       if (!posts.length) {
-        list.innerHTML = '<p>No posts yet. Be the first to write one!</p>';
+        list.innerHTML = '<p class="loading-text">No posts yet. Be the first to write one!</p>';
         return;
       }
 
       list.innerHTML = posts.map(p => `
-        <div class="card post-card">
-          <h3>${escHtml(p.title)}</h3>
-          <p class="post-meta">By <strong>${escHtml(p.username)}</strong> &middot; ${new Date(p.created_at).toLocaleDateString()}</p>
-          <p>${escHtml(p.content)}</p>
-          ${p.user_id === user.id ? `<button onclick="deletePost(${p.id})" class="btn-small btn-danger">Delete</button>` : ''}
+        <div class="post-card">
+          <div class="post-header">
+            <h3 class="post-title">${escHtml(p.title)}</h3>
+            ${p.user_id === user.id ? `<button onclick="deletePost(${p.id})" class="btn-delete">Delete</button>` : ''}
+          </div>
+          <p class="post-meta">By <strong>${escHtml(p.username)}</strong> &middot; ${new Date(p.created_at).toLocaleDateString('en-US', {year:'numeric',month:'short',day:'numeric'})}</p>
+          <p class="post-content">${escHtml(p.content)}</p>
         </div>
       `).join('');
     }
 
-    // Submit post
     document.getElementById('postForm').addEventListener('submit', async (e) => {
       e.preventDefault();
+      const btn = e.target.querySelector('button');
       const msg = document.getElementById('post-msg');
+      btn.disabled = true;
+      btn.textContent = 'Publishing...';
       msg.textContent = '';
 
       const res = await fetch('/api/posts', {
@@ -88,18 +99,20 @@
         })
       });
 
+      btn.disabled = false;
+      btn.textContent = 'Publish Post →';
+
       if (res.ok) {
-        document.getElementById('postForm').reset();
-        msg.textContent = 'Post published!';
-        msg.style.color = 'green';
+        e.target.reset();
+        msg.textContent = '✓ Post published!';
+        msg.style.color = '#2e7d32';
         loadPosts();
       } else {
-        msg.textContent = 'Failed to publish post.';
-        msg.style.color = 'red';
+        msg.textContent = 'Failed to publish. Try again.';
+        msg.style.color = '#c0392b';
       }
     });
 
-    // Delete post
     async function deletePost(id) {
       if (!confirm('Delete this post?')) return;
       const res = await fetch('/api/posts/' + id, {

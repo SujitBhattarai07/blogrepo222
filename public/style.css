@@ -5,60 +5,82 @@
 }
 
 body {
-  font-family: Arial, sans-serif;
-  background-color: #f4f4f4;
-  color: #333;
+  font-family: Georgia, serif;
+  background-color: #f9f6f1;
+  color: #222;
 }
 
-.navbar {
-  background-color: #333;
-  color: white;
-  padding: 12px 20px;
+/* ── HEADER ─────────────────────────────── */
+.site-header {
+  background-color: #fff;
+  border-bottom: 2px solid #222;
+  padding: 14px 0;
+}
+
+.header-inner {
+  max-width: 720px;
+  margin: 0 auto;
+  padding: 0 20px;
   display: flex;
   justify-content: space-between;
   align-items: center;
 }
 
-.container {
-  max-width: 700px;
-  margin: 30px auto;
-  padding: 0 16px;
+.site-title {
+  font-size: 1.4rem;
+  font-weight: bold;
+  text-decoration: none;
+  color: #222;
+  letter-spacing: -0.5px;
 }
 
-.container > h1 {
-  text-align: center;
-  margin-bottom: 6px;
+.header-right {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  font-size: 0.9rem;
+  color: #555;
 }
 
-.container > p {
-  text-align: center;
-  color: #666;
-  margin-bottom: 20px;
-}
-
-.card {
-  background: white;
-  border: 1px solid #ddd;
-  border-radius: 4px;
+/* ── AUTH PAGE ──────────────────────────── */
+.auth-wrapper {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
   padding: 20px;
-  margin-bottom: 16px;
 }
 
-.post-card h3 {
+.auth-brand {
+  text-align: center;
+  margin-bottom: 24px;
+}
+
+.auth-brand h1 {
+  font-size: 2rem;
   margin-bottom: 6px;
 }
 
-.post-meta {
-  font-size: 0.85rem;
-  color: #888;
-  margin-bottom: 10px;
+.auth-brand p {
+  color: #666;
+  font-style: italic;
 }
 
-/* TABS */
+.auth-box {
+  background: #fff;
+  border: 1px solid #ddd;
+  border-radius: 6px;
+  padding: 30px;
+  width: 100%;
+  max-width: 400px;
+}
+
+/* ── TABS ───────────────────────────────── */
 .tabs {
   display: flex;
-  margin-bottom: 20px;
-  border-bottom: 2px solid #ddd;
+  margin-bottom: 24px;
+  border-bottom: 2px solid #eee;
 }
 
 .tab {
@@ -66,81 +88,215 @@ body {
   border: none;
   background: none;
   cursor: pointer;
-  font-size: 1rem;
+  font-size: 0.95rem;
+  font-family: Georgia, serif;
+  color: #888;
   border-bottom: 2px solid transparent;
   margin-bottom: -2px;
 }
 
 .tab.active {
-  border-bottom: 2px solid #333;
+  color: #222;
+  border-bottom: 2px solid #222;
   font-weight: bold;
 }
 
-/* FORMS */
+/* ── FORMS ──────────────────────────────── */
 label {
   display: block;
-  margin-top: 12px;
-  margin-bottom: 4px;
-  font-size: 0.9rem;
-  font-weight: bold;
+  margin-top: 14px;
+  margin-bottom: 5px;
+  font-size: 0.85rem;
+  color: #555;
+  font-family: Arial, sans-serif;
 }
 
 input, textarea {
   width: 100%;
-  padding: 8px 10px;
+  padding: 9px 12px;
   border: 1px solid #ccc;
   border-radius: 4px;
   font-size: 0.95rem;
-  font-family: Arial, sans-serif;
+  font-family: Georgia, serif;
+  background: #fafafa;
 }
 
 input:focus, textarea:focus {
   outline: none;
-  border-color: #333;
+  border-color: #222;
+  background: #fff;
 }
 
 button[type="submit"] {
-  margin-top: 14px;
+  margin-top: 16px;
   width: 100%;
   padding: 10px;
-  background-color: #333;
+  background-color: #222;
   color: white;
   border: none;
   border-radius: 4px;
-  font-size: 1rem;
+  font-size: 0.95rem;
+  font-family: Georgia, serif;
   cursor: pointer;
+  letter-spacing: 0.3px;
 }
 
-button[type="submit"]:hover {
-  background-color: #555;
-}
-
-.btn-small {
-  padding: 5px 12px;
-  background-color: #333;
-  color: white;
-  border: none;
-  border-radius: 4px;
-  cursor: pointer;
-  font-size: 0.85rem;
-  margin-left: 8px;
-}
-
-.btn-small:hover {
-  background-color: #555;
-}
-
-.btn-danger {
-  background-color: #c0392b;
-  margin-top: 10px;
-  margin-left: 0;
-}
-
-.btn-danger:hover {
-  background-color: #a93226;
-}
+button[type="submit"]:hover { background-color: #444; }
+button[type="submit"]:disabled { opacity: 0.6; cursor: not-allowed; }
 
 .msg {
   margin-top: 10px;
-  font-size: 0.9rem;
+  font-size: 0.88rem;
+  font-family: Arial, sans-serif;
+  min-height: 18px;
+}
+
+/* ── MAIN LAYOUT ────────────────────────── */
+.page-wrapper {
+  max-width: 720px;
+  margin: 36px auto;
+  padding: 0 20px;
+}
+
+.write-section h2,
+.posts-section h2 {
+  font-size: 1.2rem;
+  margin-bottom: 16px;
+  padding-bottom: 8px;
+  border-bottom: 1px solid #ddd;
+}
+
+.write-form {
+  display: flex;
+  flex-direction: column;
+  gap: 0;
+}
+
+.write-form input {
+  font-size: 1.05rem;
+  padding: 10px 12px;
+  margin-bottom: 10px;
+}
+
+.write-form textarea {
+  resize: vertical;
+  font-size: 0.95rem;
+}
+
+.write-form button[type="submit"] {
+  width: auto;
+  align-self: flex-end;
+  padding: 9px 22px;
+  margin-top: 10px;
+}
+
+.divider {
+  border: none;
+  border-top: 1px solid #ddd;
+  margin: 36px 0;
+}
+
+/* ── POST CARDS ─────────────────────────── */
+.posts-section {
+  display: flex;
+  flex-direction: column;
+}
+
+.post-card {
+  background: #fff;
+  border: 1px solid #e0e0e0;
+  border-left: 3px solid #222;
+  border-radius: 4px;
+  padding: 20px 22px;
+  margin-bottom: 16px;
+}
+
+.post-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  margin-bottom: 6px;
+}
+
+.post-title {
+  font-size: 1.15rem;
+  font-weight: bold;
+  line-height: 1.3;
+  flex: 1;
+  margin-right: 12px;
+}
+
+.post-meta {
+  font-size: 0.8rem;
+  color: #888;
+  margin-bottom: 12px;
+  font-family: Arial, sans-serif;
+}
+
+.post-meta strong {
+  color: #444;
+}
+
+.post-content {
+  font-size: 0.95rem;
+  line-height: 1.7;
+  color: #333;
+  white-space: pre-wrap;
+}
+
+.loading-text {
+  color: #888;
+  font-style: italic;
+  font-size: 0.95rem;
+}
+
+/* ── BUTTONS ────────────────────────────── */
+.btn-small {
+  padding: 5px 14px;
+  background-color: #222;
+  color: white;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  font-size: 0.82rem;
+  font-family: Arial, sans-serif;
+}
+
+.btn-small:hover { background-color: #444; }
+
+.btn-delete {
+  padding: 4px 10px;
+  background: none;
+  border: 1px solid #ccc;
+  color: #c0392b;
+  border-radius: 4px;
+  cursor: pointer;
+  font-size: 0.78rem;
+  font-family: Arial, sans-serif;
+  white-space: nowrap;
+  flex-shrink: 0;
+}
+
+.btn-delete:hover {
+  background-color: #c0392b;
+  color: white;
+  border-color: #c0392b;
+}
+
+/* ── FOOTER ─────────────────────────────── */
+.site-footer {
+  text-align: center;
+  padding: 24px;
+  font-size: 0.8rem;
+  color: #aaa;
+  border-top: 1px solid #e0e0e0;
+  margin-top: 40px;
+  font-family: Arial, sans-serif;
+}
+
+/* ── RESPONSIVE ─────────────────────────── */
+@media (max-width: 500px) {
+  .auth-box { padding: 20px; }
+  .page-wrapper { margin: 20px auto; }
+  .write-form button[type="submit"] { width: 100%; }
 }
