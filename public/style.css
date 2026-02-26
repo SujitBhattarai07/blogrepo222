@@ -294,6 +294,37 @@ button[type="submit"]:disabled { opacity: 0.6; cursor: not-allowed; }
   font-family: Arial, sans-serif;
 }
 
+/* ── TOPIC STRIP ────────────────────────── */
+.topics-strip {
+  display: flex;
+  justify-content: center;
+  gap: 12px;
+  padding: 20px;
+  background: #fff;
+  border-bottom: 1px solid #e0e0e0;
+  flex-wrap: wrap;
+}
+
+.topic-card {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  padding: 8px 18px;
+  border: 1px solid #ddd;
+  border-radius: 20px;
+  font-size: 0.85rem;
+  font-family: Arial, sans-serif;
+  color: #444;
+  background: #f9f6f1;
+  cursor: default;
+  user-select: none;
+}
+
+.topic-card span {
+  font-weight: bold;
+  color: #222;
+}
+
 /* ── RESPONSIVE ─────────────────────────── */
 @media (max-width: 500px) {
   .auth-box { padding: 20px; }
