@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Blog App - Login</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+
+  <div class="container">
+    <h1>Blog App</h1>
+    <p>Share your thoughts with the world.</p>
+
+    <div class="tabs">
+      <button onclick="showTab('login')" id="tab-login" class="tab active">Login</button>
+      <button onclick="showTab('signup')" id="tab-signup" class="tab">Sign Up</button>
+    </div>
+
+    <!-- LOGIN FORM -->
+    <div id="login-section">
+      <form id="loginForm">
+        <label>Username</label>
+        <input type="text" id="login-username" placeholder="Enter username" required />
+        <label>Password</label>
+        <input type="password" id="login-password" placeholder="Enter password" required />
+        <button type="submit">Login</button>
+        <p class="msg" id="login-msg"></p>
+      </form>
+    </div>
+
+    <!-- SIGNUP FORM -->
+    <div id="signup-section" style="display:none;">
+      <form id="signupForm">
+        <label>Username</label>
+        <input type="text" id="signup-username" placeholder="Choose a username" required />
+        <label>Password</label>
+        <input type="password" id="signup-password" placeholder="Choose a password" required />
+        <button type="submit">Sign Up</button>
+        <p class="msg" id="signup-msg"></p>
+      </form>
+    </div>
+  </div>
+
+  <script>
+    function showTab(tab) {
+      document.getElementById('login-section').style.display  = tab === 'login'  ? 'block' : 'none';
+      document.getElementById('signup-section').style.display = tab === 'signup' ? 'block' : 'none';
+      document.getElementById('tab-login').classList.toggle('active',  tab === 'login');
+      document.getElementById('tab-signup').classList.toggle('active', tab === 'signup');
+    }
+
+    document.getElementById('loginForm').addEventListener('submit', async (e) => {
+      e.preventDefault();
+      const msg = document.getElementById('login-msg');
+      msg.textContent = '';
+      const res = await fetch('/api/auth/login', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          username: document.getElementById('login-username').value.trim(),
+          password: document.getElementById('login-password').value,
+        })
+      });
+      const data = await res.json();
+      if (res.ok) {
+        localStorage.setItem('user', JSON.stringify(data.user));
+        window.location.href = 'blog.html';
+      } else {
+        msg.textContent = data.error;
+        msg.style.color = 'red';
+      }
+    });
+
+    document.getElementById('signupForm').addEventListener('submit', async (e) => {
+      e.preventDefault();
+      const msg = document.getElementById('signup-msg');
+      msg.textContent = '';
+      const res = await fetch('/api/auth/signup', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          username: document.getElementById('signup-username').value.trim(),
+          password: document.getElementById('signup-password').value,
+        })
+      });
+      const data = await res.json();
+      if (res.ok) {
+        msg.textContent = 'Account created! You can now log in.';
+        msg.style.color = 'green';
+        showTab('login');
+      } else {
+        msg.textContent = data.error;
+        msg.style.color = 'red';
+      }
+    });
+  </script>
+</body>
+</html>

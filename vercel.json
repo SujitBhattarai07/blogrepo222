@@ -1,0 +1,14 @@
+{
+  "version": 2,
+  "builds": [
+    { "src": "api/**/*.js", "use": "@vercel/node" },
+    { "src": "public/**",   "use": "@vercel/static" }
+  ],
+  "routes": [
+    { "src": "/api/auth/signup",      "dest": "/api/auth/signup.js" },
+    { "src": "/api/auth/login",       "dest": "/api/auth/login.js" },
+    { "src": "/api/posts/([^/]+)",    "dest": "/api/posts/[id].js" },
+    { "src": "/api/posts",            "dest": "/api/posts.js" },
+    { "src": "/(.*)",                 "dest": "/public/$1" }
+  ]
+}
