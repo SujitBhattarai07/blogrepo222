@@ -74,7 +74,7 @@
             <div class="post-header">
               <h3 class="post-title">${escHtml(p.title)}</h3>
             </div>
-            <p class="post-meta">By <strong>${escHtml(p.username)}</strong> &middot; ${new Date(p.created_at).toLocaleDateString('en-US', {year:'numeric', month:'short', day:'numeric'})}</p>
+            <p class="post-meta">By <strong>${escHtml(p.username)}</strong> <span class="dot"></span> ${new Date(p.created_at).toLocaleDateString('en-US', {year:'numeric', month:'short', day:'numeric'})}</p>
             <p class="post-content">${escHtml(p.content.length > 200 ? p.content.slice(0, 200) + '...' : p.content)}</p>
           </div>
         `).join('');
