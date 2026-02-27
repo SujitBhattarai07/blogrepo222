@@ -158,12 +158,55 @@ button[type="submit"]:disabled { opacity: 0.6; cursor: not-allowed; }
   padding: 0 20px;
 }
 
-.write-section h2,
-.posts-section h2 {
+.write-section h2 {
   font-size: 1.2rem;
   margin-bottom: 16px;
   padding-bottom: 8px;
   border-bottom: 1px solid #ddd;
+}
+
+.posts-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 16px;
+  padding-bottom: 8px;
+  border-bottom: 1px solid #ddd;
+  gap: 12px;
+  flex-wrap: wrap;
+}
+
+.posts-header h2 {
+  font-size: 1.2rem;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.post-count {
+  font-size: 0.75rem;
+  font-family: Arial, sans-serif;
+  font-weight: normal;
+  color: #fff;
+  background: #222;
+  padding: 2px 9px;
+  border-radius: 20px;
+}
+
+#search-input {
+  width: 220px;
+  padding: 7px 12px;
+  font-size: 0.85rem;
+  border: 1px solid #ccc;
+  border-radius: 20px;
+  font-family: Arial, sans-serif;
+  background: #fafafa;
+  outline: none;
+}
+
+#search-input:focus {
+  border-color: #222;
+  background: #fff;
 }
 
 .write-form {

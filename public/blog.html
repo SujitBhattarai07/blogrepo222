@@ -10,7 +10,7 @@
 
   <header class="site-header">
     <div class="header-inner">
-      <a href="blog.html" class="site-title">✏️ The Blog</a>
+      <a href="blog.html" class="site-title"> The Blog</a>
       <div class="header-right">
         <span id="welcome-msg"></span>
         <button onclick="logout()" class="btn-small">Logout</button>
@@ -44,7 +44,10 @@
 
     <!-- ALL POSTS -->
     <div class="posts-section">
-      <h2>Recent Posts</h2>
+      <div class="posts-header">
+        <h2>Recent Posts <span class="post-count" id="post-count"></span></h2>
+        <input type="text" id="search-input" placeholder="🔍 Search posts..." oninput="filterPosts()" />
+      </div>
       <div id="posts-list">
         <p class="loading-text">Loading posts...</p>
       </div>
@@ -63,6 +66,8 @@
     document.getElementById('welcome-msg').textContent = 'Hi, ' + user.username;
     document.getElementById('year').textContent = new Date().getFullYear();
 
+    let allPosts = [];
+
     function logout() {
       localStorage.removeItem('user');
       window.location.href = 'index.html';
@@ -70,11 +75,18 @@
 
     async function loadPosts() {
       const res = await fetch('/api/posts');
-      const posts = await res.json();
-      const list = document.getElementById('posts-list');
+      allPosts = await res.json();
+      renderPosts(allPosts);
+    }
+
+    function renderPosts(posts) {
+      const list  = document.getElementById('posts-list');
+      const count = document.getElementById('post-count');
+
+      count.textContent = posts.length > 0 ? posts.length + ' posts' : '';
 
       if (!posts.length) {
-        list.innerHTML = '<p class="loading-text">No posts yet. Be the first to write one!</p>';
+        list.innerHTML = '<p class="loading-text">No posts found.</p>';
         return;
       }
 
@@ -88,6 +100,12 @@
           <p class="post-content">${escHtml(p.content)}</p>
         </div>
       `).join('');
+    }
+
+    function filterPosts() {
+      const query = document.getElementById('search-input').value.toLowerCase().trim();
+      const filtered = allPosts.filter(p => p.title.toLowerCase().includes(query));
+      renderPosts(filtered);
     }
 
     document.getElementById('postForm').addEventListener('submit', async (e) => {
