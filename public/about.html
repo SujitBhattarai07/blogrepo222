@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>About - The Blog</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+
+  <header class="site-header">
+    <div class="header-inner">
+      <a href="home.html" class="site-title">✏️ The Blog</a>
+      <div class="header-right">
+        <a href="about.html" class="nav-link active-link">About</a>
+        <a href="index.html" class="btn-small">Login / Sign Up</a>
+      </div>
+    </div>
+  </header>
+
+  <div class="page-wrapper">
+
+    <div class="about-section">
+      <h1>About The Blog</h1>
+      <p class="about-tagline">A simple place to write and share.</p>
+
+      <div class="about-card">
+        <h2>What is this?</h2>
+        <p>The Blog is a simple blogging platform where anyone can sign up, write posts, and share their thoughts with others. No ads, no algorithms — just writing.</p>
+      </div>
+
+      <div class="about-card">
+        <h2>How it works</h2>
+        <p>Create an account with a username and password. Once logged in, you can write a post and it will appear on the blog for everyone to read. You can delete your own posts at any time.</p>
+      </div>
+
+      <div class="about-card">
+        <h2>Built with</h2>
+        <ul class="about-list">
+          <li>HTML, CSS, JavaScript — Frontend</li>
+          <li>Node.js — Backend API</li>
+          <li>PostgreSQL (Neon) — Database</li>
+          <li>Vercel — Hosting & Deployment</li>
+        </ul>
+      </div>
+
+      <div class="about-cta">
+        <a href="index.html" class="btn-hero">Join & Start Writing →</a>
+        <a href="home.html" class="nav-link" style="margin-left: 20px;">← Back to posts</a>
+      </div>
+    </div>
+
+  </div>
+
+  <footer class="site-footer">
+    <p>The Blog &mdash; <span id="year"></span></p>
+  </footer>
+
+  <script>
+    document.getElementById('year').textContent = new Date().getFullYear();
+  </script>
+</body>
+</html>
